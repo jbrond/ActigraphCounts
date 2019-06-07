@@ -15,6 +15,10 @@ Example:
 
 counts = agfilt(raw_acceleration_data,sampling_frequency,B,A);
 
+Update: 03/06-2019
+
+R and Python scripts has been added to the repository.
+These scripts were devloped thanks to Ruben Brondeel (ruben.brondeel@umontreal.ca)
 
 
 Jan Christin Brønd
