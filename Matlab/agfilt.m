@@ -23,10 +23,10 @@ B = B * gain;
 for n=1:S(2)
     
     fx8up = filter(B,A,dataf(:,n));
-    
+    fx810 = downsample(fx8up,3);
+	
     fx8 = pptrunc(downsample(fx8up,3),peakThreshold);
     
     counts(:,n) = runsum(floor(trunc(abs(fx8),deadband)./adcResolution),integN,0);
-    
 end
     

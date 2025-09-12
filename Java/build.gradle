@@ -1,0 +1,38 @@
+apply plugin: 'java'
+
+//enable copying dependencies from maven repository
+repositories {
+       mavenCentral()
+}
+
+//Enable including dependencies in the output jar
+configurations {
+    // configuration that holds jars to include in the jar
+    extraLibs
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/uk.me.berndporr/iirj
+	compile group: 'uk.me.berndporr', name: 'iirj', version: '1.1'
+	extraLibs group: 'uk.me.berndporr', name: 'iirj', version: '1.1'
+	
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+	compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+	extraLibs group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'	
+	
+   configurations.compile.extendsFrom(configurations.extraLibs)
+}
+
+sourceCompatibility = 1.7
+version = '1.0'
+jar {
+	manifest {
+	  attributes	'Implementation-Title': 'Skotte_Activity_Classification',
+		         	'Implementation-Version': version
+	}
+	//Include the dependency libraries in the .jar
+	from {
+		configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
